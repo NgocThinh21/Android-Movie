@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/demo', 'phimController@demo');
+
 //tên phim
 Route::get('/admin', 'phimController@admin');
 Route::get('/addmovie', 'phimController@addmovie');

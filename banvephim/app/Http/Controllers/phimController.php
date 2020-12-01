@@ -8,31 +8,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 Session_start();
+use App\phim;
+use App\quocgia;
+use App\theloai;
+use App\nsx;
+use App\daodien;
+use App\dienvien;
 
 class phimController extends Controller
 {
 
-        public function admin(){
-            return view('Pages.admin');
-        }
+    
+    public function admin(){
+        return view('Pages.admin');
+    }
+
+     
+      
         public function addmovie(){
-            $phim= DB::table('phim')->orderby('phim_id','desc')->get();
-            $daodien= DB::table('daodien')->orderby('daodien_id','desc')->get();
-            $dienvien= DB::table('dienvien')->orderby('dienvien_id','desc')->get();
+      
+            $phim=phim::all();
+            $quocgia=quocgia::all();
+            $theloai=theloai::all();
+            $daodien= DB::table('daodien')->get();
+            $dienvien= DB::table('dienvien')->get();
             $nsx= DB::table('nsx')->get();
-            $quocgia= DB::table('quocgia')->orderby('quocgia_id','desc')->get();
-            $theloai= DB::table('theloai')->get();
-            // $phim= DB::table('phim')
-            // ->join('dienvien','dienvien.dienvien_id','=','phim.phim_dienvien')
-            // ->join('daodien','daodien.daodien_id','=','phim.phim_daodien')
-            // ->join('nsx','nsx.nsx_id','=','phim.phim_nsx')
-            // ->join('quocgia','quocgia.quocgia_id','=','phim.phim_quocgia')
-            // ->join('theloai','theloai.theloai_id','=','phim.phim_theloai')->get();
             return view('Pages.addmovie')->with('phim',$phim)
             ->with('daodien',$daodien)
             ->with('dienvien',$dienvien)
             ->with('nsx',$nsx)
-
             ->with('quocgia',$quocgia)
             ->with('theloai',$theloai);
 
@@ -82,7 +86,7 @@ class phimController extends Controller
 
         }
         public function allmovie(){
-            $phim=DB::table('phim')->get();
+            $phim=phim::all();
             return view('Pages.allmovie')->with('phim',$phim);
         }
         public function active($id){
@@ -145,3 +149,12 @@ class phimController extends Controller
             return redirect('allmovie');
         }
 }
+
+
+         
+// $phim= DB::table('phim')
+// ->join('dienvien','dienvien.dienvien_id','=','phim.phim_dienvien')
+// ->join('daodien','daodien.daodien_id','=','phim.phim_daodien')
+// ->join('nsx','nsx.nsx_id','=','phim.phim_nsx')
+// ->join('quocgia','quocgia.quocgia_id','=','phim.phim_quocgia')
+// ->join('theloai','theloai.theloai_id','=','phim.phim_theloai')->get();
